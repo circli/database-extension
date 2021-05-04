@@ -1,0 +1,36 @@
+{
+	"name": "circli/database-extension",
+	"description": "",
+	"type": "circli-extension",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Andreas Sundqvist",
+			"email": "andreas@stefna.is"
+		}
+	],
+	"require": {
+		"php": "^8.0",
+		"psr/container": "^1.0",
+		"php-di/php-di": "^6.0",
+		"ramsey/uuid": "^4.1.1",
+		"atlas/orm": "^3.0",
+		"ext-pdo": "*"
+	},
+	"require-dev": {
+		"circli/contracts": "2.x-dev",
+		"circli/core": "2.x-dev",
+		"stefna/codestyle": "^1.11",
+		"phpstan/phpstan": "^0.12.85"
+	},
+	"autoload": {
+		"psr-4": {
+			"Circli\\Database\\": "src/"
+		}
+	},
+	"scripts": {
+		"check": "./vendor/bin/phpcs --standard=vendor/stefna/codestyle/library.xml src/",
+		"fix": "./vendor/bin/phpcbf --standard=vendor/stefna/codestyle/library.xml src/",
+		"stan": "phpstan analyse"
+	}
+}
