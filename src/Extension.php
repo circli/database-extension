@@ -20,11 +20,21 @@ final class Extension implements ExtensionInterface
 		return [
 			Connection::class => function (ContainerInterface $container) {
 				$config = $container->get(Config::class);
-				$connection = Connection::new(
-					$config->get('db.dsn'),
-					$config->get('db.username'),
-					$config->get('db.password')
-				);
+				$dsn = null;
+				if ($config->has('db.dsn')) {
+					$dsn = $config->get('db.dsn');
+				}
+				if (!$dsn) {
+					$dsnOpts = [
+						'dbname=' . $config->get('db.dbname'),
+						'host=' . $config->get('db.host'),
+						'charset=' . $config->get('db.charset'),
+					];
+					$type = $config->get('db.type') ?? 'mysql';
+					$dsn = $type . ':' . implode(';', $dsnOpts);
+				}
+
+				$connection = Connection::new($dsn, $config->get('db.username'), $config->get('db.password'));
 				WhereUuid::preCalculateDriver($connection);
 				return $connection;
 			},
