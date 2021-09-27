@@ -14,7 +14,6 @@ use Atlas\Table\TableLocator;
 
 class TestingAtlas extends Atlas
 {
-
 	public static function new(...$args) : TestingAtlas
 	{
 		$transactionClass = AutoCommit::CLASS;

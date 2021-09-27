@@ -7,6 +7,8 @@ use Atlas\Pdo\Connection;
 use Circli\Contracts\ExtensionInterface;
 use Circli\Contracts\PathContainer;
 use Circli\Core\Config;
+use Circli\Core\Environment;
+use Circli\Database\Atlas\TestingAtlas;
 use Psr\Container\ContainerInterface;
 use Circli\Database\Atlas\Transaction\BeginOnWrite;
 
@@ -42,6 +44,9 @@ final class Extension implements ExtensionInterface
 				return $container->get(Connection::class)->getPdo();
 			},
 			Atlas::class => static function (ContainerInterface $container) {
+				if ($container->has(Environment::class) && $container->get(Environment::class)->is(Environment::TESTING())) {
+					return TestingAtlas::new($container->get(Connection::class), BeginOnWrite::class);
+				}
 				return Atlas::new($container->get(Connection::class), BeginOnWrite::class);
 			},
 		];
