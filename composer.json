@@ -21,11 +21,18 @@
 		"circli/contracts": "2.x-dev",
 		"circli/core": "2.x-dev",
 		"stefna/codestyle": "^1.11",
-		"phpstan/phpstan": "^0.12.85"
+		"phpstan/phpstan": "^0.12.85",
+		"phpunit/phpunit": "^9.5",
+		"atlas/cli": "^2.2"
 	},
 	"autoload": {
 		"psr-4": {
 			"Circli\\Database\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Circli\\Database\\Tests\\": "tests/"
 		}
 	},
 	"scripts": {
