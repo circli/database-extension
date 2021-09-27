@@ -29,6 +29,10 @@ abstract class NestedTransaction extends Transaction
 
 	public function beginTransaction() : void
 	{
+		if ($this->transactionDepth < 0) {
+			$this->transactionDepth = 0;
+		}
+
 		/** @var Connection $connection */
 		foreach ($this->getConnections() as $connection) {
 			if ($this->transactionDepth === 0 || !$this->hasSavepoint($connection)) {
