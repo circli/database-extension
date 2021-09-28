@@ -26,6 +26,11 @@ class DefaultId implements \JsonSerializable, GenericId
 		return new static(GenericId::NO_INT_ID, Uuid::fromString($id));
 	}
 
+	public static function fromBytes(string $id): static
+	{
+		return new static(GenericId::NO_INT_ID, Uuid::fromBytes($id));
+	}
+
 	public static function new(?UuidInterface $uuid = null): static
 	{
 		return new static(GenericId::NO_INT_ID, $uuid ?? Uuid::uuid4());
