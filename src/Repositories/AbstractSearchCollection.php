@@ -109,19 +109,34 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 				$this->filterCollections[$filterClass] = new $filterClass($value);
 			}
 			elseif (is_array(static::$filterBy[$key])) {
-				if ($value instanceof UuidInterface) {
-					$value = $value->getBytes();
-				}
-				elseif ($value instanceof DefaultId) {
-					$value = $value->toBytes();
-				}
 				$filter = (array)static::$filterBy[$key];
 				$this->where[$key] = $filter;
-				$this->where[$key][] = (string)$value;
+				$this->where[$key][] = $this->castValue($value);
 			}
 		}
 
 		return $this;
+	}
+
+	/**
+	 * @return string|array<int, mixed>
+	 */
+	protected function castValue(mixed $value): string|array
+	{
+		if (is_array($value)) {
+			$values = [];
+			foreach ($value as $item) {
+				$values[] = $this->castValue($item);
+			}
+			return $values;
+		}
+		if ($value instanceof UuidInterface) {
+			$value = $value->getBytes();
+		}
+		elseif ($value instanceof DefaultId) {
+			$value = $value->toBytes();
+		}
+		return (string)$value;
 	}
 
 	protected function handledFilterBy(string $key, mixed $value): bool
