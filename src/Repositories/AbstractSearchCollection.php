@@ -11,8 +11,9 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * @template T
  * @template M of MapperSelect
+ * @implements BuilderInterface<M>
  */
-abstract class AbstractSearchCollection implements QueryCollectionInterface, WithAware
+abstract class AbstractSearchCollection implements QueryCollectionInterface, WithAware, BuilderInterface
 {
 	public const FILTER_COLLECTION = 'collection';
 	public const FILTER_INCLUDE = 'include';
