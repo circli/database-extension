@@ -8,5 +8,8 @@ interface CollectionPaginationAware
 {
 	public function paginate(Page $page): void;
 
+	/**
+	 * @phpstan-pure
+	 */
 	public function getPage(): ?Page;
 }

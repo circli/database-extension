@@ -46,6 +46,13 @@ trait RepositoryDefaultTrait
 		$select = $this->mapper->select();
 		$select = $collectionBuilder->build($select);
 
+		if ($this instanceof PaginationAware && $collectionBuilder instanceof CollectionPaginationAware) {
+			$this->currentPage = $collectionBuilder->getPage();
+			if (!$this->currentPage) {
+				$collectionBuilder->paginate($this->getCurrentPage());
+			}
+		}
+
 		try {
 			if ($collectionBuilder instanceof WithAware) {
 				$select->with($collectionBuilder->with());

@@ -4,6 +4,9 @@ namespace Circli\Database\Repositories;
 
 use Circli\Database\Values\Page;
 
+/**
+ * @property ?Page $currentPage
+ */
 interface PaginationAware
 {
 	public function getNextPage(): ?Page;

@@ -4,7 +4,6 @@ namespace Circli\Database\Repositories;
 
 use Atlas\Mapper\MapperSelect;
 use Circli\Database\Values\DefaultId;
-use Circli\Database\Values\Page;
 use Ramsey\Uuid\UuidInterface;
 
 
@@ -29,8 +28,6 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 	protected array $where = [];
 	/** @var string[] */
 	protected array $include = [];
-	protected ?Page $page = null;
-
 	/** @var array<class-string<T>, T> */
 	protected array $filterCollections = [];
 
@@ -50,9 +47,9 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 			$select->where(...$where);
 		}
 
-		if ($this->page) {
-			$select->offset($this->page->getOffset());
-			$select->limit($this->page->getLimit());
+		if ($this instanceof CollectionPaginationAware && $this->getPage()) {
+			$select->offset($this->getPage()->getOffset());
+			$select->limit($this->getPage()->getLimit());
 		}
 
 		return $select;
