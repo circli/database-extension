@@ -17,6 +17,8 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	/** @var class-string<T> */
 	protected static string $collectionType = GenericEntity::class;
 
+	protected ?int $totalCount = 0;
+
 	/**
 	 * @param RecordSet<Record>|null $recordSet
 	 * @return static<T>
@@ -99,6 +101,16 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	public function count(): int
 	{
 		return count($this->data);
+	}
+
+	public function getTotalCount(): ?int
+	{
+		return $this->totalCount;
+	}
+
+	public function setTotalCount(int $count): void
+	{
+		$this->totalCount = $count;
 	}
 
 	public function isEmpty(): bool

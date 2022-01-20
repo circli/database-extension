@@ -60,7 +60,12 @@ trait RepositoryDefaultTrait
 
 			$records = $select->fetchRecordSet();
 			$collectionClass = $this->collectionClass;
-			return $collectionClass::fromRecordSet($records);
+			/** @var AbstractCollection $collection */
+			$collection = $collectionClass::fromRecordSet($records);
+			if ($this instanceof PaginationAware) {
+				$collection->setTotalCount($select->fetchCount());
+			}
+			return $collection;
 		}
 		catch (\PDOException $e) {
 			$this->logger->error('Failed to fetch from db', [
