@@ -16,6 +16,7 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 {
 	public const FILTER_COLLECTION = 'collection';
 	public const FILTER_INCLUDE = 'include';
+	public const NO_LIMIT = -1;
 
 	/** @var array<string, null|class-string|array{string}> */
 	protected static array $filterBy = [];
@@ -30,6 +31,8 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 	protected array $include = [];
 	/** @var array<class-string<T>, T> */
 	protected array $filterCollections = [];
+
+	protected int $defaultLimit = self::NO_LIMIT;
 
 	protected static string $collectionNamespace = '';
 
@@ -50,6 +53,9 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 		if ($this instanceof CollectionPaginationAware && $this->getPage()) {
 			$select->offset($this->getPage()->getOffset());
 			$select->limit($this->getPage()->getLimit());
+		}
+		elseif ($this->defaultLimit !== self::NO_LIMIT) {
+			$select->limit($this->defaultLimit);
 		}
 
 		return $select;

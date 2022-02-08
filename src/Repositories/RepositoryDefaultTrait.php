@@ -43,15 +43,15 @@ trait RepositoryDefaultTrait
 			throw new \BadMethodCallException('Repository missing $collectionClass property');
 		}
 
-		$select = $this->mapper->select();
-		$select = $collectionBuilder->build($select);
-
 		if ($this instanceof PaginationAware && $collectionBuilder instanceof CollectionPaginationAware) {
 			$this->currentPage = $collectionBuilder->getPage();
 			if (!$this->currentPage) {
 				$collectionBuilder->paginate($this->getCurrentPage());
 			}
 		}
+
+		$select = $this->mapper->select();
+		$select = $collectionBuilder->build($select);
 
 		try {
 			if ($collectionBuilder instanceof WithAware) {
