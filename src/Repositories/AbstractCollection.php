@@ -16,6 +16,12 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	protected array $data = [];
 	/** @var class-string<T> */
 	protected static string $collectionType = GenericEntity::class;
+	/**
+	 * Treat collection as a list or assoc array
+	 *
+	 * Default is to treat it as a list
+	 */
+	protected static bool $assoc = false;
 
 	protected ?int $totalCount = 0;
 
@@ -60,6 +66,9 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	 */
 	public function getIterator(): \ArrayIterator
 	{
+		if (!self::$assoc) {
+			return new \ArrayIterator(array_values($this->data));
+		}
 		return new \ArrayIterator($this->data);
 	}
 
@@ -120,6 +129,9 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 
 	public function jsonSerialize()
 	{
+		if (!self::$assoc) {
+			return array_values($this->data);
+		}
 		return $this->data;
 	}
 
