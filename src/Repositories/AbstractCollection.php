@@ -63,7 +63,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		return new \ArrayIterator($this->data);
 	}
 
-	public function offsetExists($offset): bool
+	public function offsetExists(mixed $offset): bool
 	{
 		return isset($this->data[$offset]);
 	}
@@ -71,7 +71,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	/**
 	 * @return T|null
 	 */
-	public function offsetGet($offset)
+	public function offsetGet(mixed $offset): ?Entity
 	{
 		return $this->data[$offset] ?? null;
 	}
@@ -79,7 +79,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	/**
 	 * @param T $value
 	 */
-	public function offsetSet($offset, $value)
+	public function offsetSet(mixed $offset, $value): void
 	{
 		if (!$value instanceof static::$collectionType) {
 			throw new \TypeError('Invalid type for collection. Expected: ' . static::$collectionType);
@@ -93,7 +93,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		}
 	}
 
-	public function offsetUnset($offset)
+	public function offsetUnset(mixed $offset): void
 	{
 		unset($this->data[$offset]);
 	}
@@ -126,7 +126,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	/**
 	 * @return T|null
 	 */
-	public function first()
+	public function first(): ?Entity
 	{
 		if ($this->data) {
 			return $this->data[array_key_first($this->data)];
