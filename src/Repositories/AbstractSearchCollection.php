@@ -134,7 +134,13 @@ abstract class AbstractSearchCollection implements QueryCollectionInterface, Wit
 			}
 			return $values;
 		}
-		if ($value instanceof UuidInterface) {
+		if ($value instanceof \BackedEnum) {
+			$value = $value->value;
+		}
+		elseif ($value instanceof \UnitEnum) {
+			$value = $value->name;
+		}
+		elseif ($value instanceof UuidInterface) {
 			$value = $value->getBytes();
 		}
 		elseif ($value instanceof DefaultId) {
