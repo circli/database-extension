@@ -10,7 +10,7 @@ use Atlas\Mapper\Record;
 interface Entity
 {
 	/**
-	 * @param R $record
+	 * @phpstan-param R $record
 	 */
-	public static function fromRecord(Record $record): self;
+	public static function fromRecord(Record $record): static;
 }

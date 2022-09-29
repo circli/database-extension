@@ -1,0 +1,21 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Circli\\\\Database\\\\Atlas\\\\TestingAtlas\\:\\:new\\(\\) has parameter \\$args with no type specified\\.$#"
+			count: 1
+			path: src/Atlas/TestingAtlas.php
+
+		-
+			message: "#^Parameter \\#2 \\$transaction of class Circli\\\\Database\\\\Atlas\\\\TestingAtlas constructor expects Atlas\\\\Orm\\\\Transaction\\\\Transaction, object given\\.$#"
+			count: 1
+			path: src/Atlas/TestingAtlas.php
+
+		-
+			message: "#^Method Circli\\\\Database\\\\Repositories\\\\AbstractSearchCollection\\:\\:createFilterCollection\\(\\) should return T\\|null but returns object\\.$#"
+			count: 1
+			path: src/Repositories/AbstractSearchCollection.php
+
+		-
+			message: "#^Method Circli\\\\Database\\\\Repositories\\\\WithAware\\:\\:with\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Repositories/WithAware.php

@@ -27,7 +27,6 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 
 	/**
 	 * @param RecordSet<Record>|null $recordSet
-	 * @return static<T>
 	 */
 	public static function fromRecordSet(?RecordSet $recordSet): static
 	{
@@ -53,9 +52,6 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		return static::$collectionType;
 	}
 
-	/**
-	 * @return static<T>
-	 */
 	public static function empty(): static
 	{
 		return new static();
@@ -127,7 +123,10 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		return count($this->data) === 0;
 	}
 
-	public function jsonSerialize()
+	/**
+	 * @return array<array-key, T>
+	 */
+	public function jsonSerialize(): array
 	{
 		if (!self::$assoc) {
 			return array_values($this->data);
@@ -158,7 +157,7 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 	}
 
 	/**
-	 * @param T $entity
+	 * @phpstan-param T $entity
 	 */
 	public function contains(Entity $entity): bool
 	{
@@ -172,7 +171,6 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 
 	/**
 	 * @param callable(T): bool $filter
-	 * @return static<T>
 	 */
 	public function filter(callable $filter): static
 	{

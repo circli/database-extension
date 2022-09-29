@@ -61,7 +61,7 @@ class DefaultId implements \JsonSerializable, GenericId
 		return $this->id === GenericId::NO_INT_ID;
 	}
 
-	public function jsonSerialize()
+	public function jsonSerialize(): string
 	{
 		return $this->uuid->toString();
 	}
