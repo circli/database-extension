@@ -11,13 +11,13 @@
 	],
 	"require": {
 		"php": "^8.0",
-		"psr/container": "^1.0",
-		"php-di/php-di": "^6.0",
+		"psr/container": "^1.0 || ^2.0",
 		"ramsey/uuid": "^4.1.1",
 		"atlas/orm": "^3.0",
 		"ext-pdo": "*"
 	},
 	"require-dev": {
+		"php-di/php-di": "^6.0",
 		"circli/contracts": "2.x-dev",
 		"circli/core": "2.x-dev",
 		"stefna/codestyle": "^1.11",
