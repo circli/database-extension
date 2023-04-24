@@ -2,14 +2,14 @@
 
 namespace Circli\Database\Repositories;
 
-use Circli\Database\Values\Page;
+use Circli\Database\Values\PageInterface;
 
 interface CollectionPaginationAware
 {
-	public function paginate(Page $page): void;
+	public function paginate(PageInterface $page): void;
 
 	/**
 	 * @phpstan-pure
 	 */
-	public function getPage(): ?Page;
+	public function getPage(): ?PageInterface;
 }

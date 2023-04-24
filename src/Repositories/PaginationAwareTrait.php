@@ -3,22 +3,23 @@
 namespace Circli\Database\Repositories;
 
 use Circli\Database\Values\Page;
+use Circli\Database\Values\PageInterface;
 
 trait PaginationAwareTrait
 {
-	private ?Page $currentPage = null;
+	private ?PageInterface $currentPage = null;
 
-	public function getNextPage(): ?Page
+	public function getNextPage(): ?PageInterface
 	{
 		return $this->getCurrentPage()->next();
 	}
 
-	public function getPreviousPage(): ?Page
+	public function getPreviousPage(): ?PageInterface
 	{
 		return $this->getCurrentPage()->previous();
 	}
 
-	public function getCurrentPage(): Page
+	public function getCurrentPage(): PageInterface
 	{
 		if (!$this->currentPage) {
 			$this->currentPage = new Page(0, 100);

@@ -2,16 +2,16 @@
 
 namespace Circli\Database\Repositories;
 
-use Circli\Database\Values\Page;
+use Circli\Database\Values\PageInterface;
 
 /**
- * @property ?Page $currentPage
+ * @property ?PageInterface $currentPage
  */
 interface PaginationAware
 {
-	public function getNextPage(): ?Page;
+	public function getNextPage(): ?PageInterface;
 
-	public function getPreviousPage(): ?Page;
+	public function getPreviousPage(): ?PageInterface;
 
-	public function getCurrentPage(): Page;
+	public function getCurrentPage(): PageInterface;
 }

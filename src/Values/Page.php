@@ -2,7 +2,7 @@
 
 namespace Circli\Database\Values;
 
-final class Page
+final class Page implements PageInterface
 {
 	private bool $eol = false;
 
