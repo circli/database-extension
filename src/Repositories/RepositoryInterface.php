@@ -19,7 +19,7 @@ interface RepositoryInterface
 	 * @param array<array-key, string> $include
 	 * @return E
 	 */
-	public function findById(GenericId $id, array $include = null);
+	public function findById(GenericId $id, ?array $include = null);
 
 	/**
 	 * @param B $collectionBuilder

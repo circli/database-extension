@@ -13,7 +13,7 @@ class NotFound extends DomainException
 		return new static(sprintf('Record with id "%s" not found', $id->toString()));
 	}
 
-	final public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
+	final public function __construct(string $message = "", int $code = 0, ?Throwable $previous = null)
 	{
 		parent::__construct($message, $code, $previous);
 	}

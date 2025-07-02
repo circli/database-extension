@@ -17,7 +17,7 @@ final class Extension implements ExtensionInterface
 	/**
 	 * @return \Closure[]
 	 */
-	public function configure(PathContainer $pathContainer = null): array
+	public function configure(?PathContainer $pathContainer = null): array
 	{
 		return [
 			Connection::class => function (ContainerInterface $container) {

@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  */
 trait RepositoryDefaultTrait
 {
-	public function findById(GenericId $id, array $include = null)
+	public function findById(GenericId $id, ?array $include = null)
 	{
 		if (!isset($this->entityClass)) {
 			throw new \BadMethodCallException('Repository missing $entityClass property');
