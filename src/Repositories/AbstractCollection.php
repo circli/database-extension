@@ -103,6 +103,10 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		unset($this->data[$offset]);
 	}
 
+	/**
+	 * @phpstan-assert-if-true T $this->first()
+	 * @phpstan-assert-if-true T $this->last()
+	 */
 	public function count(): int
 	{
 		return count($this->data);
@@ -118,6 +122,10 @@ abstract class AbstractCollection implements \IteratorAggregate, \ArrayAccess, \
 		$this->totalCount = $count;
 	}
 
+	/**
+	 * @phpstan-assert-if-true null $this->first()
+	 * @phpstan-assert-if-true null $this->last()
+	 */
 	public function isEmpty(): bool
 	{
 		return count($this->data) === 0;
