@@ -15,7 +15,7 @@ final class WithBuilder
 		foreach ($include as $key) {
 			if (isset($includeMap[$key])) {
 				foreach ($includeMap[$key] as $relKey => $rel) {
-					if (is_array($rel)) {
+					if (is_array($rel) || is_callable($rel)) {
 						$with[$relKey] = $rel;
 					}
 					else {
