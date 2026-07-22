@@ -26,9 +26,37 @@ class DefaultId implements \JsonSerializable, GenericId
 		return new static(GenericId::NO_INT_ID, Uuid::fromString($id));
 	}
 
+	public static function tryString(string $id): ?static
+	{
+		if (!$id) {
+			return null;
+		}
+		try {
+			$uuid = Uuid::fromString($id);
+			return new static(GenericId::NO_INT_ID, $uuid);
+		}
+		catch (\Throwable) {
+			return null;
+		}
+	}
+
 	public static function fromBytes(string $id): static
 	{
 		return new static(GenericId::NO_INT_ID, Uuid::fromBytes($id));
+	}
+
+	public static function tryBytes(string $id): ?static
+	{
+		if (!$id) {
+			return null;
+		}
+		try {
+			$uuid = Uuid::fromBytes($id);
+			return new static(GenericId::NO_INT_ID, $uuid);
+		}
+		catch (\Throwable) {
+			return null;
+		}
 	}
 
 	public static function new(?UuidInterface $uuid = null): static
@@ -64,5 +92,36 @@ class DefaultId implements \JsonSerializable, GenericId
 	public function jsonSerialize(): string
 	{
 		return $this->uuid->toString();
+	}
+
+	public function equals(mixed $id): bool
+	{
+		if (!$id instanceof static) {
+			return false;
+		}
+		return $id->toString() === $this->uuid->toString();
+	}
+
+	public static function cast(UuidInterface|GenericId|string $id): static
+	{
+		if (is_string($id)) {
+			if (Uuid::isValid($id)) {
+				return static::fromString($id);
+			}
+			return static::fromBytes($id);
+		}
+
+		if ($id instanceof static) {
+			return $id;
+		}
+
+		if ($id instanceof DefaultId) {
+			return new static(
+				$id->id,
+				$id->uuid,
+			);
+		}
+
+		return static::fromString($id->toString());
 	}
 }
