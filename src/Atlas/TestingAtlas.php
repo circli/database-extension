@@ -43,17 +43,14 @@ class TestingAtlas extends Atlas
 		}
 		$mapperReflection = new \ReflectionClass($mapper);
 		$identityMapVar = $mapperReflection->getProperty('identityMap');
-		$identityMapVar->setAccessible(true);
 		/** @var IdentityMap $identityMap */
 		$identityMap = $identityMapVar->getValue($mapper);
 		$identityMapReflection = new \ReflectionClass($identityMap);
 		$serialToRowVar = $identityMapReflection->getProperty('serialToRow');
 		$rowToSerialVar = $identityMapReflection->getProperty('rowToSerial');
 
-		$serialToRowVar->setAccessible(true);
 		$serialToRowVar->setValue($identityMap, []);
 
-		$rowToSerialVar->setAccessible(true);
 		$rowToSerialVar->setValue($identityMap, new \SplObjectStorage());
 	}
 
@@ -61,7 +58,6 @@ class TestingAtlas extends Atlas
 	{
 		$mapperLocationReflection = new \ReflectionClass($this->mapperLocator);
 		$mappersVar = $mapperLocationReflection->getProperty('mappers');
-		$mappersVar->setAccessible(true);
 		$mappers = $mappersVar->getValue($this->mapperLocator);
 		foreach ($mappers as $mapper) {
 			$this->resetIdentityMap($mapper);
