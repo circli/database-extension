@@ -102,7 +102,7 @@ class DefaultId implements \JsonSerializable, GenericId
 		return $id->toString() === $this->uuid->toString();
 	}
 
-	public static function cast(UuidInterface|GenericId|string $id): static
+	public static function cast(string|object $id): static
 	{
 		if (is_string($id)) {
 			if (Uuid::isValid($id)) {
@@ -122,6 +122,14 @@ class DefaultId implements \JsonSerializable, GenericId
 			);
 		}
 
-		return static::fromString($id->toString());
+		if (method_exists($id, 'toString')) {
+			return static::fromString($id->toString());
+		}
+
+		if ($id instanceof \Stringable) {
+			return static::fromString((string) $id);
+		}
+
+		throw new \InvalidArgumentException('Invalid id type: ' . get_debug_type($id));
 	}
 }
